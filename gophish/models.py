@@ -19,15 +19,21 @@ class Model(object):
             val = getattr(self, key)
             if isinstance(val, datetime):
                 val = val.isoformat()
-            # Parse custom classes
-            elif val and not isinstance(val, (int, float, str, list, dict)):
+            # Parse Model objects
+            elif val and isinstance(val, Model):
                 val = val.as_dict()
             # Parse lists of objects
-            elif isinstance(val, list):
-                val = [e.as_dict() for e in val]
+            elif isinstance(val, (list, tuple)):
+                newval = []
+                for e in val:
+                    if isinstance(e, Model):
+                        newval.append(e.as_dict())
+                    else:
+                        newval.append(e)
+                val = newval
 
             # Add it if it's not None
-            if val:
+            if val is not None:
                 result[key] = val 
         return result
 
