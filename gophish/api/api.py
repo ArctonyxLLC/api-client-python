@@ -78,7 +78,7 @@ class APIEndpoint(object):
         endpoint = self.endpoint
 
         if resource.id:
-            endpoint = '{}/{}'.format(endpoint, resource.id)
+            endpoint = '{}{}'.format(endpoint, resource.id)
 
         response = self.api.execute("PUT", endpoint, json=resource.as_dict())
 
