@@ -80,7 +80,7 @@ class APIEndpoint(object):
         if resource.id:
             endpoint = '{}/{}'.format(endpoint, resource.id)
 
-        response = self.api.execute("PUT", endpoint, json=resource.as_json())
+        response = self.api.execute("PUT", endpoint, json=resource.as_dict())
 
         if not respose.ok:
             return Error.parse(response.json())
