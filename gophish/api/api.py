@@ -25,7 +25,7 @@ class APIEndpoint(object):
         self.endpoint = endpoint
         self._cls = cls
 
-    def get(self, resource_id=None, resource_action=None):
+    def get(self, resource_id=None, resource_action=None, parse=True):
         """ Gets the details for one or more resources by ID
         
         Args:
@@ -48,6 +48,9 @@ class APIEndpoint(object):
         response = self.api.execute("GET", endpoint)
         if not response.ok:
             return Error.parse(response.json())
+
+        if not parse:
+            return response.json()
 
         if resource_id:
             return self._cls.parse(response.json())

@@ -34,7 +34,8 @@ class API(APIEndpoint):
         """ Complete an existing campaign (Stop processing events) """
 
         return super(API, self).get(resource_id=campaign_id, 
-                                    resource_action='complete')
+                                    resource_action='complete',
+                                    parse=False)
 
     def summary(campaign_id=None):
         """ Returns the summary of one or more campaigns. """
